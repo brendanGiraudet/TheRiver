@@ -13,29 +13,41 @@ class Solution
 {
     static void Main(string[] args)
     {
+        var watch = System.Diagnostics.Stopwatch.StartNew();
         var r1 = Console.ReadLine();
-        var r1List = new List<int>();        
-        var tmp1 = Convert.ToInt32(r1);
-        r1List.Add(tmp1);
+        var r1List = new List<int>();
+        var val1 = Convert.ToInt32(r1);
+        r1List.Add(val1);
 
         var r2 = Console.ReadLine();
         var r2List = new List<int>();
-        var tmp2 = Convert.ToInt32(r2);
-        r2List.Add(tmp2);
+        var val2 = Convert.ToInt32(r2);
+        r2List.Add(val2);
 
-        while (!r1List.Any(o => o.Equals(tmp2)) && !r2List.Any(o => o.Equals(tmp1)))
+        while (!r1List.Exists( o => o.Equals(val2)) && !r2List.Exists(o => o.Equals(val1)))
         {
-            tmp1 += r1.Select(x => Convert.ToInt32(x.ToString())).Sum();
-            r1List.Add(tmp1);
-            r1 = tmp1.ToString();
+            val1 += SumOfDigit(val1);
+            r1List.Add(val1);
 
-            tmp2 += r2.Select(x => Convert.ToInt32(x.ToString())).Sum();
-            r2List.Add(tmp2);
-            r2 = tmp2.ToString();
+            val2 += SumOfDigit(val2);
+            r2List.Add(val2);
         }
 
         var rep = r1List.Intersect(r2List).FirstOrDefault();
 
         Console.WriteLine(rep);
+        watch.Stop();
+        Console.Error.WriteLine(watch.ElapsedMilliseconds);
+    }
+    static int SumOfDigit(int digits)
+    {
+        int sum = 0, b;
+        while(digits != 0)
+        {
+            b = digits % 10;
+            sum += b;
+            digits /= 10;
+        }
+        return sum;
     }
 }
