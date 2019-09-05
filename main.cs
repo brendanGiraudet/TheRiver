@@ -26,12 +26,10 @@ class Solution
 
         while (!r1List.Exists( o => o.Equals(val2)) && !r2List.Exists(o => o.Equals(val1)))
         {
-            //val1 += SumOfDigit(val1);
             val1 += r1.Select(x => Convert.ToInt32(x.ToString())).Sum();
             r1List.Add(val1);
             r1 = val1.ToString();
 
-            //val2 += SumOfDigit(val2);
             val2 += r2.Select(x => Convert.ToInt32(x.ToString())).Sum();
             r2List.Add(val2);
             r2 = val2.ToString();
